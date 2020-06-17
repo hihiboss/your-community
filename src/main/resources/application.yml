@@ -1,0 +1,66 @@
+server:
+  port: 28080
+
+spring:
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:your-community
+    username: sa
+    password:
+
+---
+spring:
+  profiles: test
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:your-community
+    username: sa
+    password:
+
+---
+spring:
+  profiles: prod
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/yourcommunity
+    username: moongle
+    password: yourcommunity
+    platform: postgres
+    hikari:
+      auto-commit: false
+      idle-timeout: 10000
+      minimumIdle: 30
+      maximum-pool-size: 150
+      read-only: false
+      connection-timeout: 20000
+
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual: true
