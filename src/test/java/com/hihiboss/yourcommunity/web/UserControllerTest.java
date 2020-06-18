@@ -33,6 +33,7 @@ public class UserControllerTest {
     private UserRepository userRepository;
 
     private User testUser;
+    private String endpoint = "/api/users";
 
     @Before
     public void setup() {
@@ -54,7 +55,7 @@ public class UserControllerTest {
     @Test
     public void joinTest_shouldSuccess() {
         // given
-        String url = "/api/user";
+        String url = endpoint;
         JoinRequest requestDto = new JoinRequest(
                 testUser.getStudentId(),
                 testUser.getName(),
@@ -84,7 +85,7 @@ public class UserControllerTest {
     public void getUserInfoTest_shouldSuccess() {
         // given
         long userId = userRepository.save(testUser).getId();
-        String url = "/api/user/" + userId;
+        String url = endpoint + "/" + userId;
 
         // when
         ResponseEntity<UserInfoResponse> responseEntity = restTemplate.getForEntity(url, UserInfoResponse.class);
@@ -105,7 +106,7 @@ public class UserControllerTest {
     public void updateUserInfoTest_shouldSuccess() {
         // given
         long userId = userRepository.save(testUser).getId();
-        String url = "/api/user/" + userId;
+        String url = endpoint + "/" + userId;
         UpdateUserInfoRequest requestDto = new UpdateUserInfoRequest(
                 "new test name",
                 "new@email.com",
@@ -134,7 +135,7 @@ public class UserControllerTest {
     public void leaveTest_shouldSuccess() {
         // given
         long userId = userRepository.save(testUser).getId();
-        String url = "/api/user/" + userId;
+        String url = endpoint + "/" + userId;
 
         // when
         restTemplate.delete(url);
