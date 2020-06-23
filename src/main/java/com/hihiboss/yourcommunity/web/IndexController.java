@@ -14,4 +14,7 @@ public class IndexController {
     public String usersJoin() {
         return "users-join";
     }
+
+    @GetMapping("/communities/create")
+    public String createCommunity() { return "communities-create"; }
 }

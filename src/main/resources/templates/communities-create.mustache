@@ -1,0 +1,35 @@
+{{>layout/header}}
+
+<div class="container">
+    <div class="row">
+        <h1>커뮤니티 만들기</h1>
+    </div>
+
+    <div class="row">
+        <label>커뮤니티가 생성되면 관리자 계정이 발급됩니다.</label>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form>
+                <div class="form-group">
+                    <label for="communityName">커뮤니티 이름</label>
+                    <input type="text" class="form-control" id="communityName" placeholder="만들 커뮤니티의 이름을 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label for="managerEmail">관리자 이메일</label>
+                    <input type="email" class="form-control" id="managerEmail" placeholder="관리자 이메일을 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" class="form-control" id="password" placeholder="사용할 비밀번호를 입력하세요">
+                </div>
+            </form>
+            <a href="/" role="button" class="btn btn-secondary">취소</a>
+            <button type="button" class="btn btn-primary" id="btn-create">생성</button>
+        </div>
+    </div>
+</div>
+
+<script src="/js.app/communities-create.js" async></script>
+{{>layout/footer}}
