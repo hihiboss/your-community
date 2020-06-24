@@ -11,6 +11,7 @@ import lombok.Getter;
 @Builder
 public class JoinRequest {
     private long studentId;
+    private long communityId;
     private String name;
     private String email;
     private String enrollmentStatus;
@@ -20,6 +21,7 @@ public class JoinRequest {
     public User toEntity() {
         return User.builder()
                 .studentId(studentId)
+                .communityId(communityId)
                 .name(name)
                 .email(email)
                 .enrollmentStatus(EnrollmentStatusType.getByValue(enrollmentStatus))
