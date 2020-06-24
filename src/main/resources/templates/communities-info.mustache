@@ -1,0 +1,59 @@
+{{>layout/header}}
+
+<div class="container">
+    <div class="row">
+        <h1>{{communityInfo.name}} 관리페이지</h1>
+    </div>
+    <div class="row">
+        <label>커뮤니티 ID: {{communityInfo.communityId}}</label>
+        <input type="number" id="community-id" value={{communityInfo.communityId}} style="display: none">
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="communityName">커뮤니티 이름</label>
+                    <input type="text" class="form-control" id="communityName" placeholder="변경할 커뮤니티의 이름을 입력하세요" value={{communityInfo.name}}>
+                    <button type="button" class="btn btn-warning" id="btn-name">변경</button>
+                </div>
+                <div class="form-group">
+                    <label for="managerEmail">관리자 이메일</label>
+                    <input type="email" class="form-control" id="managerEmail" placeholder="변경할 관리자 이메일을 입력하세요" value={{communityInfo.managerEmail}}>
+                    <button type="button" class="btn btn-warning" id="btn-email">변경</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <h2>가입된 유저 리스트</h2>
+    </div>
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>학번</th>
+            <th>이름</th>
+            <th>이메일</th>
+            <th>재학상태</th>
+            <th>학년</th>
+            <th>닉네임</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {{#UserInfoResponses}}
+            <tr>
+                <td>{{studentId}}</td>
+                <td>{{name}}</td>
+                <td>{{email}}</td>
+                <td>{{enrollmentStatus}}</td>
+                <td>{{grade}}</td>
+                <td>{{nickname}}</td>
+            </tr>
+        {{/UserInfoResponses}}
+        </tbody>
+    </table>
+
+</div>
+
+<script src="/js.app/communities-info.js" async></script>
+{{>layout/footer}}
