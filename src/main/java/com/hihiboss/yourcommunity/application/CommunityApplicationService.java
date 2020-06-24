@@ -2,6 +2,7 @@ package com.hihiboss.yourcommunity.application;
 
 import com.hihiboss.yourcommunity.domain.Community;
 import com.hihiboss.yourcommunity.domain.CommunityRepository;
+import com.hihiboss.yourcommunity.domain.UserRepository;
 import com.hihiboss.yourcommunity.web.dto.CommunityInfoResponse;
 import com.hihiboss.yourcommunity.web.dto.CreateCommunityRequest;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class CommunityApplicationService {
     private CommunityRepository communityRepository;
+    private UserRepository userRepository;
 
     @Transactional
     public Long createCommunity(CreateCommunityRequest createCommunityRequest) {
@@ -52,6 +54,7 @@ public class CommunityApplicationService {
                 .orElseThrow(() -> new IllegalArgumentException("There is no community with that ID!"));
 
         communityRepository.delete(community);
+        userRepository.deleteAllByCommunityId(communityId);
 
         return communityId;
     }
