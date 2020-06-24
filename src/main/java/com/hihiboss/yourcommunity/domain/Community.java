@@ -20,14 +20,14 @@ public class Community extends BaseTimeEntity {
     @Column(name = "community_name")
     private String communityName;
 
-    @Column(name = "manager_eamil")
+    @Column(name = "manager_eamil", nullable = false)
     private String managerEmail;
 
     public void changeName(String newName) {
-
+        this.communityName = newName;
     }
 
     public void changeManagerEmail(String newEmail) {
-
+        this.managerEmail = newEmail;
     }
 }
