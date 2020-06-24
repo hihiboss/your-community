@@ -1,5 +1,7 @@
 package com.hihiboss.yourcommunity.web;
 
+import com.hihiboss.yourcommunity.domain.Community;
+import com.hihiboss.yourcommunity.domain.CommunityRepository;
 import com.hihiboss.yourcommunity.domain.User;
 import com.hihiboss.yourcommunity.domain.UserRepository;
 import com.hihiboss.yourcommunity.domain.value.EnrollmentStatusType;
@@ -31,14 +33,24 @@ public class UserControllerTest {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CommunityRepository communityRepository;
 
     private User testUser;
     private String endpoint = "/api/users";
 
     @Before
     public void setup() {
+        long testCommunityId = communityRepository.save(
+                Community.builder()
+                        .communityName("test community")
+                        .managerEmail("manager@email.com")
+                        .build()
+        ).getId();
+
         testUser = User.builder()
                 .studentId(12345678L)
+                .communityId(testCommunityId)
                 .name("test name")
                 .email("test@email.com")
                 .enrollmentStatus(EnrollmentStatusType.STUDENT)
@@ -58,6 +70,7 @@ public class UserControllerTest {
         String url = endpoint;
         JoinRequest requestDto = new JoinRequest(
                 testUser.getStudentId(),
+                testUser.getCommunityId(),
                 testUser.getName(),
                 testUser.getEmail(),
                 testUser.getEnrollmentStatus().getValue(),
@@ -74,6 +87,7 @@ public class UserControllerTest {
 
         User user = userRepository.findAll().get(0);
         assertThat(user.getStudentId()).isEqualTo(testUser.getStudentId());
+        assertThat(user.getCommunityId()).isEqualTo(testUser.getCommunityId());
         assertThat(user.getName()).isEqualTo(testUser.getName());
         assertThat(user.getEmail()).isEqualTo(testUser.getEmail());
         assertThat(user.getEnrollmentStatus()).isEqualTo(testUser.getEnrollmentStatus());
@@ -95,6 +109,7 @@ public class UserControllerTest {
 
         UserInfoResponse userInfoResponse = responseEntity.getBody();
         assertThat(userInfoResponse.getStudentId()).isEqualTo(testUser.getStudentId());
+        assertThat(userInfoResponse.getCommunityId()).isEqualTo(testUser.getCommunityId());
         assertThat(userInfoResponse.getName()).isEqualTo(testUser.getName());
         assertThat(userInfoResponse.getEmail()).isEqualTo(testUser.getEmail());
         assertThat(userInfoResponse.getEnrollmentStatus()).isEqualTo(testUser.getEnrollmentStatus().getValue());
