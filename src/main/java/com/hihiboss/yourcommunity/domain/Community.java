@@ -25,11 +25,23 @@ public class Community extends BaseTimeEntity {
     @Column(name = "manager_eamil", nullable = false)
     private String managerEmail;
 
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Board> boards = new ArrayList<>();
+
     public void changeName(String newName) {
         this.communityName = newName;
     }
 
     public void changeManagerEmail(String newEmail) {
         this.managerEmail = newEmail;
+    }
+
+    public void createBoard(Board board) {
+        this.boards.add(board);
+    }
+
+    public void deleteBoard(Board board) {
+        this.boards.remove(board);
     }
 }
