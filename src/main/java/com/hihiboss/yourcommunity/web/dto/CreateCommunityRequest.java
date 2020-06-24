@@ -7,12 +7,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class CreateCommunityRequest {
-    private String name;
+    private String communityName;
     private String managerEmail;
 
     public Community toEntity() {
         return Community.builder()
-                .communityName(name)
+                .communityName(communityName)
                 .managerEmail(managerEmail)
                 .build();
     }

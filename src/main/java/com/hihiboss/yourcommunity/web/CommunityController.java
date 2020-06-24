@@ -13,7 +13,7 @@ public class CommunityController {
     private CommunityApplicationService communityApplicationService;
 
     @PostMapping()
-    public Long createCommunity(CreateCommunityRequest requestDto) {
+    public Long createCommunity(@RequestBody CreateCommunityRequest requestDto) {
         return communityApplicationService.createCommunity(requestDto);
     }
 
