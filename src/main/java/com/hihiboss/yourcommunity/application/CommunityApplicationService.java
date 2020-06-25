@@ -94,4 +94,17 @@ public class CommunityApplicationService {
 
         community.deleteBoard(board);
     }
+
+    @Transactional(readOnly = true)
+    public BoardInfoResponse getBoardInfo(long boardId, long communityId) {
+        Community community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new IllegalArgumentException("There is no community with that ID!"));
+
+        Board board = community.getBoards().stream()
+                .filter(b -> b.getId() == boardId)
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("There is no board with that ID!"));
+
+        return new BoardInfoResponse(board);
+    }
 }
