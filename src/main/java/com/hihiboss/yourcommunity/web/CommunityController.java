@@ -1,6 +1,7 @@
 package com.hihiboss.yourcommunity.web;
 
 import com.hihiboss.yourcommunity.application.CommunityApplicationService;
+import com.hihiboss.yourcommunity.web.dto.CommunityBoardsInfoResponse;
 import com.hihiboss.yourcommunity.web.dto.CommunityInfoResponse;
 import com.hihiboss.yourcommunity.web.dto.CreateCommunityRequest;
 import lombok.AllArgsConstructor;
@@ -35,5 +36,10 @@ public class CommunityController {
     @DeleteMapping("{id}")
     public Long deleteCommunity(@PathVariable Long id) {
         return communityApplicationService.deleteCommunity(id);
+    }
+
+    @GetMapping("{id}/boards")
+    public CommunityBoardsInfoResponse getBoards(@PathVariable long id) {
+        return communityApplicationService.getCommunityBoardsInfo(id);
     }
 }

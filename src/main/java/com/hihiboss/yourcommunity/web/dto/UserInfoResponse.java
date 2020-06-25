@@ -8,6 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserInfoResponse {
     private long studentId;
+    private long communityId;
     private String name;
     private String email;
     private String enrollmentStatus;
@@ -16,6 +17,7 @@ public class UserInfoResponse {
 
     public UserInfoResponse(User entity) {
         this.studentId = entity.getStudentId();
+        this.communityId = entity.getCommunityId();
         this.name = entity.getName();
         this.email = entity.getEmail();
         this.enrollmentStatus = entity.getEnrollmentStatus().getValue();

@@ -8,6 +8,7 @@ var main = {
     join : function () {
         var data = {
             studentId : $("#studentId").val(),
+            communityId: $("#communityId").val(),
             name : $("#name").val(),
             email : $("#email").val(),
             enrollmentStatus : $("#enrollmentStatus").val(),
