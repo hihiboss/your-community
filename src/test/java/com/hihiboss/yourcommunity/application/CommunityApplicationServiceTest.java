@@ -2,6 +2,7 @@ package com.hihiboss.yourcommunity.application;
 
 import com.hihiboss.yourcommunity.domain.*;
 import com.hihiboss.yourcommunity.domain.value.BoardType;
+import com.hihiboss.yourcommunity.web.dto.BoardInfoResponse;
 import com.hihiboss.yourcommunity.web.dto.CommunityBoardsInfoResponse;
 import com.hihiboss.yourcommunity.web.dto.CreateBoardRequest;
 import com.hihiboss.yourcommunity.web.dto.DeleteBoardRequest;
@@ -13,8 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -169,7 +168,7 @@ public class CommunityApplicationServiceTest {
 
     @Test
     @Transactional
-    public void getBoards_shouldSuccess() {
+    public void getCommunityBoardsInfo_shouldSuccess() {
         // given
         Community community = communityRepository.save(
                 Community.builder()
@@ -195,5 +194,30 @@ public class CommunityApplicationServiceTest {
         // then
         assertThat(response.getCommunityId()).isEqualTo(community.getId());
         assertThat(response.getBoards().size()).isEqualTo(2);
+    }
+
+    @Test
+    @Transactional
+    public void getBoardInfo_shouldSuccess() {
+        // given
+        Community community = communityRepository.save(
+                Community.builder()
+                        .communityName("test community")
+                        .managerEmail("manager@test.com")
+                        .build()
+        );
+        Board testBoard = Board.builder()
+                .boardName("test board")
+                .boardType(BoardType.FREE)
+                .build();
+        community.createBoard(testBoard);
+
+        // when
+        BoardInfoResponse response = communityApplicationService.getBoardInfo(testBoard.getId(), community.getId());
+
+        // then
+        assertThat(response.getBoardId()).isEqualTo(community.getBoards().get(0).getId());
+        assertThat(response.getBoardName()).isEqualTo(testBoard.getBoardName());
+        assertThat(response.getBoardType()).isEqualTo(testBoard.getBoardType().getValue());
     }
 }
