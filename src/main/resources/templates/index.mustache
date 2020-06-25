@@ -1,0 +1,38 @@
+{{>layout/header}}
+
+<div class="container">
+    <div class="row">
+        <h1>Welcome to Your Community</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form>
+                <div class="form-group">
+                    <label for="studentId" class="control-label">학번</label>
+                    <input type="number" class="form-control" id="studentId" placeholder="학번을 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="control-label">비밀번호</label>
+                    <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요">
+                </div>
+            </form>
+            <p>
+                <button class="btn btn-success" type="button" id="btn-login">로그인</button>
+                <a href="/users/join" class="btn btn-primary" type="button">회원 가입</a>
+            </p>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p>
+                <a href="/communities/create" class="btn btn-info" type="button">커뮤니티 만들기</a>
+                <a href="/communities/login" class="btn btn-warning" type="button">커뮤니티 관리하기</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="/js.app/index.js" async></script>
+{{>layout/footer}}
