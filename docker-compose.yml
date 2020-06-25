@@ -1,0 +1,27 @@
+version: '3'
+services:
+  postgresql:
+    container_name: your-community-postgres
+    image: postgres:11.2-alpine
+    volumes:
+      - /home/ec2-user/database/your-community:/var/lib/postgresql
+    environment:
+      POSTGRES_PASSWORD: yourcommunity
+      POSTGRES_USER: moongle
+      POSTGRES_DB: yourcommunity
+      TZ: "Asia/Seoul"
+    ports:
+      - 5432:5432
+
+  your-community:
+    container_name: your-community
+    image: hihiboss/your-community:latest
+    entrypoint:
+      - java
+      - -jar
+      - -Dspring.profiles.active=prod
+      - your-community.jar
+    depends_on:
+      - postgresql
+    ports:
+      - 28080:28080

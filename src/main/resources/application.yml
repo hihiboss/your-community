@@ -40,7 +40,7 @@ spring:
   profiles: prod
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/yourcommunity
+    url: jdbc:postgresql://postgresql:5432/yourcommunity
     username: moongle
     password: yourcommunity
     platform: postgres
